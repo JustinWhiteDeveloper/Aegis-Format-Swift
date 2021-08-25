@@ -15,9 +15,12 @@ class AegisFormatReaderTests: XCTestCase {
         let reader: AegisFormatReader = EmptyAegisFormatReader()
         
         //when
+        let exampleUrl = Bundle.module.url(forResource: "test_01",
+                                           withExtension: "ass")
         let subtitles = reader.readSubtitles()
         
         //then
+        XCTAssertNotNil(exampleUrl)
         XCTAssertEqual(subtitles.count, 0)
     }
 }

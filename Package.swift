@@ -23,6 +23,10 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "Aegis-Format-SwiftTests",
-            dependencies: ["Aegis-Format-Swift"]),
+            dependencies: ["Aegis-Format-Swift"],
+            resources: [
+                .copy("Resources/test_01.ass")
+            ]),
+        
     ]
 )
