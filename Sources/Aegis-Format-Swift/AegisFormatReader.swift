@@ -24,6 +24,9 @@ public class AegisFileFormatReader: AegisFormatReader {
         static let fieldSeperator: Character = ","
     }
     
+    public init() {
+    }
+    
     public func getSubtitles(file: String, encoding: String.Encoding) -> [String] {
         
         var result: [String] = []
