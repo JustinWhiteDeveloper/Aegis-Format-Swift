@@ -7,24 +7,24 @@
 
 import Foundation
 
-protocol AegisFormatReader {
+public protocol AegisFormatReader {
     func getSubtitles(file: String, encoding: String.Encoding) -> [String]
 }
 
-extension AegisFormatReader {
+public extension AegisFormatReader {
     func getSubtitles(file: String) -> [String] {
         return getSubtitles(file: file, encoding: .utf8)
     }
 }
 
-class AegisFileFormatReader: AegisFormatReader {
+public class AegisFileFormatReader: AegisFormatReader {
     
     private enum Constants {
         static let dialoguePrefix: String = "Dialogue:"
         static let fieldSeperator: Character = ","
     }
     
-    func getSubtitles(file: String, encoding: String.Encoding) -> [String] {
+    public func getSubtitles(file: String, encoding: String.Encoding) -> [String] {
         
         var result: [String] = []
         
