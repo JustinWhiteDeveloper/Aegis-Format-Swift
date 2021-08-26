@@ -5,12 +5,45 @@
 //  Created by Justin White on 26/08/21.
 //
 
+import Foundation
+
 protocol AegisFormatReader {
-    func readSubtitles() -> [String]
+    func getSubtitles(file: String, encoding: String.Encoding) -> [String]
 }
 
-class EmptyAegisFormatReader: AegisFormatReader {
-    func readSubtitles() -> [String] {
-        return []
+extension AegisFormatReader {
+    func getSubtitles(file: String) -> [String] {
+        return getSubtitles(file: file, encoding: .utf8)
+    }
+}
+
+class AegisFileFormatReader: AegisFormatReader {
+    
+    private enum Constants {
+        static let dialoguePrefix: String = "Dialogue:"
+        static let fieldSeperator: Character = ","
+    }
+    
+    func getSubtitles(file: String, encoding: String.Encoding) -> [String] {
+        
+        var result: [String] = []
+        
+        guard let fileData = FileManager.default.contents(atPath: file),
+              let data = String(data: fileData, encoding: encoding) else {
+            return result
+        }
+        
+        let lines = data.components(separatedBy: .newlines)
+        
+        for line in lines where line.hasPrefix(Constants.dialoguePrefix) {
+            
+            let adjustedLine = line.split(separator: Constants.fieldSeperator).last
+            
+            if let adjustedLine = adjustedLine {
+                result.append(String(adjustedLine))
+            }
+        }
+        
+        return result
     }
 }

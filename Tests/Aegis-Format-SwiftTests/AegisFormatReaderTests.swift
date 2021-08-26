@@ -10,17 +10,16 @@ import XCTest
 @testable import Aegis_Format_Swift
 
 class AegisFormatReaderTests: XCTestCase {
-    func testAegisFormatReader_EmptyReader() {
+    func testAegisFormatReader_ReadExampleFile() {
         //given
-        let reader: AegisFormatReader = EmptyAegisFormatReader()
+        let reader: AegisFormatReader = AegisFileFormatReader()
         
         //when
-        let exampleUrl = Bundle.module.url(forResource: "test_01",
-                                           withExtension: "ass")
-        let subtitles = reader.readSubtitles()
+        let path = Bundle.module.path(forResource: "test_01", ofType: "ass")!
+        let subtitles = reader.getSubtitles(file: path)
         
         //then
-        XCTAssertNotNil(exampleUrl)
-        XCTAssertEqual(subtitles.count, 0)
+        XCTAssertNotNil(path)
+        XCTAssertEqual(subtitles.count, 4)
     }
 }
