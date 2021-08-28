@@ -57,6 +57,7 @@ public class AegisFileFormatReader: AegisFormatReader {
             }
                         
             let item = String(adjustedLine2)
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
 
             if !item.contains(Constants.garbageString) {
                 result.append(item)
