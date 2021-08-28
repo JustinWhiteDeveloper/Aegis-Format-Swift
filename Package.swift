@@ -25,7 +25,8 @@ let package = Package(
             name: "Aegis-Format-SwiftTests",
             dependencies: ["Aegis-Format-Swift"],
             resources: [
-                .copy("Resources/test_01.ass")
+                .copy("Resources/test_01.ass"),
+                .copy("Resources/test_02.ass")
             ]),
         
     ]

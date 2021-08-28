@@ -22,6 +22,10 @@ public class AegisFileFormatReader: AegisFormatReader {
     private enum Constants {
         static let dialoguePrefix: String = "Dialogue:"
         static let fieldSeperator: Character = ","
+        static let bracketSeperator: Character = "}"
+        
+        //note to self, should refactor to 'isGarbageMethod'
+        static let garbageString: String = "\\N"
     }
     
     public init() {
@@ -41,9 +45,21 @@ public class AegisFileFormatReader: AegisFormatReader {
         for line in lines where line.hasPrefix(Constants.dialoguePrefix) {
             
             let adjustedLine = line.split(separator: Constants.fieldSeperator).last
+                        
+            guard let adjustedLine = adjustedLine else {
+                continue
+            }
+                
+            let adjustedLine2 = adjustedLine.split(separator: Constants.bracketSeperator).last
             
-            if let adjustedLine = adjustedLine {
-                result.append(String(adjustedLine))
+            guard let adjustedLine2 = adjustedLine2 else {
+                continue
+            }
+                        
+            let item = String(adjustedLine2)
+
+            if !item.contains(Constants.garbageString) {
+                result.append(item)
             }
         }
         
